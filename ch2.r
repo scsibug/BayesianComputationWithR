@@ -89,3 +89,12 @@ dev.off()
 png("ch2_img/hist_posterior_for_p.png", width=defaultChartDim, height=defaultChartDim)
 curve(histprior(x,midpt,prior) * dbeta(x,s+1,f+1),from=0, to=1, xlab="p",ylab="Posterior density")
 dev.off()
+
+p = seq(0, 1, length=500)
+post = histprior(p, midpt, prior) * dbeta(p, s+1, f+1)
+post = post/sum(post)
+
+png("ch2_img/hist_sim_posterior.png", width=defaultChartDim, height=defaultChartDim)
+ps = sample(p, replace=TRUE, prob=post)
+hist(ps, xlab="p", main="")
+dev.off()
